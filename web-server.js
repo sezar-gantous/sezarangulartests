@@ -6,7 +6,7 @@ var util = require('util'),
     url = require('url'),
     events = require('events');
 
-var DEFAULT_PORT = 8000;
+var DEFAULT_PORT = process.env.PORT || 8000;
 
 function main(argv) {
   new HttpServer({
@@ -40,7 +40,7 @@ function HttpServer(handlers) {
 
 HttpServer.prototype.start = function(port) {
   this.port = port;
-  this.server.listen(port);
+  this.server.listen(process.env.PORT || port);
   util.puts('Http Server running at http://localhost:' + port + '/');
 };
 
