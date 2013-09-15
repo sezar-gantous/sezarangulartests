@@ -3,7 +3,7 @@
 /* Controllers */
 
 
-
+/*
 function IndexCtrl() {
 
 }
@@ -26,7 +26,7 @@ function PhoneDetailCtrl($scope, $routeParams, Phone) {
   $scope.setImage = function(imageUrl) {
     $scope.mainImageUrl = imageUrl;
   }
-}
+}*/
 
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', 'Phone'];
 
