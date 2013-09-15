@@ -53,7 +53,7 @@ angular.module('phonecat.controllers', ['ui']).
       $scope.orderProp = 'age';
 
   })
-  .controller('TodoCtrl',function($scope,$http,todosF){
+  .controller('TodoCtrl',function($scope,$http/*,todosF*/){
 
 
  	/*$http.get('todos/todos.json').success(function(data) {
@@ -74,12 +74,12 @@ angular.module('phonecat.controllers', ['ui']).
 	    {
 	    	$scope.todos.push({text:$scope.todoText, done:false});
 	        $scope.todoText = '';
-
+/*
 	        //update json
 	        todosF.update($scope.todos,
             function (data) {
                 $scope.todos = data; // since backend send the updated user back
-            });
+            });*/
 	    }
     };
      
