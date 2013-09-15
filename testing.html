@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" ng-app="phonecat">
+<head>
+  <meta charset="utf-8">
+  <title>sezar Gantous - AngularJS</title>
+  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+
+  <style type="text/css">
+   .well{
+    background-color: rgb(220, 234, 244);
+   }
+  </style>
+</head>
+<body>
+
+  <div ng-view></div>
+
+ <div class="container">
+      <div class="navbar navbar-static-top navbar-inverse">
+        <div class="navbar-inner">
+          <a class="brand" href="#">Sezar Gantous</a>
+          <ul class="nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="#">Phone catalog app</a></li>
+          <li><a href="#">Todo list app</a></li>
+          </ul>
+        </div>
+    </div>
+
+ <div class="well">
+   <p class="lead">
+     I heard about AngularJS a while back but I kind of shrugged it off and didn't give it too much attention...<br/>
+     However I kept seeing people talking about it to the point where it was the last straw for me.<br/> 
+     So I decided to spare little time and learn AngularJS.  
+   </p> 
+   <p class="lead">
+     In the phone catalog tab is a tutorial I followed at angularJS's site. <a href="http://docs.angularjs.org/tutorial">The page for the tutorial</a>.<br/>
+     It was a really good introduction to what AngularJS is and how it works. I learned a lot from this tutorial and I highly recommend it to anyone who wants to see what Angular is all about!(though maybe not for a beginner/new level programmer...)
+
+   </p>
+   <p class="lead">
+     The Todo list app is just me playing around with what I learned from the tutorial.<br/>
+     It's a simple little app...thanks to AngularJS! it would have been a little frustrating without Angular's amazing magical powers!!!<br/>
+     My test code is up on github <a href="https://github.com/sezar-gantous/Angular-todoApp">here</a> 
+   </p> 
+   <p class="lead">
+     So to sum up everything, I will defiantly use AngularJS in my next projects. I don't why it took me so long to give a it a chance.<br/>
+     I'm running this whole web site using Angular and on a NodeJS server (<a href="www.heroku.com">heroku!!</a>). 
+   </p>
+ </div>
+ </div> 
+
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular/angular-resource.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui/0.4.0/angular-ui.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.2.0/ui-bootstrap-tpls.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/directives.js"></script>
+</body>
+</html>

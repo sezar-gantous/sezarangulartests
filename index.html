@@ -5,10 +5,31 @@
   <title>sezar Gantous - AngularJS</title>
   <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="css/bootstrap.css">
+
+   <style type="text/css">
+   .Homewell{
+    background-color: rgb(220, 234, 244);
+   }
+  </style>
+
 </head>
 <body>
 
-  <div ng-view></div>
+ <div class="container">
+      <div class="navbar navbar-static-top navbar-inverse">
+        <div class="navbar-inner">
+          <a class="brand" href="#">Sezar Gantous</a>
+          <ul class="nav">
+          <li class="active"><a href="/index">Home</a></li>
+          <li><a href="/phones">Phone catalog app</a></li>
+          <li><a href="/todoApp">Todo list app</a></li>
+          </ul>
+        </div>
+    </div>
+
+    <div ng-view></div>
+ 
+ </div>
 
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
