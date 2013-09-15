@@ -82,3 +82,23 @@ ul.specs dt {
 h1 {
   border-bottom: 1px solid gray;
 }
+
+
+.done-true {
+    text-decoration: line-through;
+    color: grey;
+    }
+
+
+.item, .placeholder {
+    padding: 10px;
+    margin-bottom: 10px;
+    /*width: 50px;
+    height: 20px;*/
+    border: 1px solid #333;
+    background: #EEE;
+    cursor: move;
+}
+
+.placeholder {
+    background: #AEF;

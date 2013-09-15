@@ -7,5 +7,6 @@ angular.module('phonecat', ['phonecatFilters', 'phonecatServices']).
   $routeProvider.
       when('/phones', {templateUrl: 'partials/phone-list.html',   controller: PhoneListCtrl}).
       when('/phones/:phoneId', {templateUrl: 'partials/phone-detail.html', controller: PhoneDetailCtrl}).
+      when('/todoApp', {templateUrl: 'partials/todo-partial.html', controller: TodoCtrl}).
       otherwise({redirectTo: '/phones'});
 }]);

@@ -1,0 +1,23 @@
+<div ng-controller="TodoCtrl">
+    <br/>
+  <div class="well span4" >
+    <h2>Total todos: {{remaining()}}</h2>
+    <ul class="unstyled"  ui:sortable ng:model="todos" >
+        <li ng-repeat="todo in todos" class="item">
+            <input type="checkbox" ng-model="todo.done">
+            <span class="done-{{todo.done}}">{{todo.text}}</span>
+            <div class="tabs-spacer"></div>      
+        </li>
+    </ul>
+        <form class="form-horizontal" name="theFrom">
+            <div ng-class="{error:theForm.taskInput.$invalid}">
+                <input type="text" name="taskInput" ng-model="todoText"  placeholder="add new todo here" ng-model-instant required>
+                <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+
+                <button class="btn btn-primary"  ng-click="addTodo()"   ><i class="icon-plus"></i>Add</button>
+            </div>
+        </form>
+       <button class="btn" ng-click="clearCompleted()"><i class="icon-trash"></i>Clear Completed</button>
+     </div>
+
+</div>
