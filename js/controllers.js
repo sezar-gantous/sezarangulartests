@@ -33,10 +33,10 @@ function PhoneDetailCtrl($scope, $routeParams, Phone) {
 
 
 angular.module('phonecat.controllers', ['ui']).
-  controller('IndexCtrl', [function() {
+  controller('IndexCtrl', function() {
 
-  }])
-  .controller('PhoneDetailCtrl', [function($scope, $routeParams, Phone) {
+  })
+  .controller('PhoneDetailCtrl',function($scope, $routeParams, Phone) {
 
     $scope.phone = Phone.get({phoneId: $routeParams.phoneId}, function(phone) {
     $scope.mainImageUrl = phone.images[0];
@@ -46,13 +46,13 @@ angular.module('phonecat.controllers', ['ui']).
       $scope.mainImageUrl = imageUrl;
     }
 
-  }])
-  .controller('PhoneListCtrl', [function($scope, Phone) {
+  })
+  .controller('PhoneListCtrl', function($scope, Phone) {
 
       $scope.phones = Phone.query();
       $scope.orderProp = 'age';
 
-  }])
+  })
   .controller('TodoCtrl',function($scope,$http,todosF){
 
 
