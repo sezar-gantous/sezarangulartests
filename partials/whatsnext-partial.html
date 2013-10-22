@@ -1,0 +1,9 @@
+<div ng-controller='TabsCtrl'>
+  <tabset>
+    <!--<tab heading="Static title">Static content</tab>-->
+    <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" >
+       <div ng-include="tab.content"></div>
+    </tab>
+    
+  </tabset>
+</div>

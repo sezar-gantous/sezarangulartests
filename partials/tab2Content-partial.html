@@ -1,0 +1,60 @@
+<div ng-controller="whatsnextCtrl">
+  
+   <div class="well well-larg">
+      <input  class=" pull-left" ng-model="query" placeholder="search movie">
+
+      <select ng-model="orderProp" >
+        <option disabled selected>Order by</option>
+        <option value="name">Alphabetical</option>
+        <option value="date">Movies Coming up</option>
+        <option value="-date">Movies Later on</option>
+      </select>
+
+      <button class="btn pull-right" ng-click="clearWatched('Movie')"><i class="icon-trash"></i>Clear Whatched</button>
+      <button class="btn pull-right" ng-click="isCollapsed = !isCollapsed"><i class=" icon-chevron-down"></i>Add A Movie</button>
+      </br>
+    </div>  
+    <hr>
+
+        <div collapse="isCollapsed" style="z-index:1;">
+            <div class="well well-larg Homewell" >
+
+              <form class="form-horizontal" name="theFrom" >
+
+                <div ng-class="{error:theForm.movieInput.$invalid}">
+
+                    <input type="text" name="movieInput" ng-model="newMovieText" class="pull-left" placeholder="Name of the Movie" ng-model-instant required>
+                    <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+                     
+                    
+
+                      <input type="text" datepicker-popup="dd MMMM yyyy" ng-model="dt" is-open="opened"  max="'2020-06-22'" datepicker-options="dateOptions" ng-required="true"  />
+                      <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+                      <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+
+                    <button class="btn btn-primary pull-right"  ng-click="addMovie()" ><i class="icon-plus"></i>Add</button>
+                </div>
+              </form>        
+             
+            </div>
+             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+         </div>
+
+      <div class="well well-larg" style="z-index:-1;">
+        <h3>You have {{remaining('Movie')}}  out of {{total('Movie')}} Movies to watch!</h3>
+                <button class="btn btn-success pull-left" ng-click="whatchedAll('Movie')"> <i class="icon-ok" ></i></button>
+        <br/><br/>
+            <ul class="unstyled"  ng:model="whatsnexts" >
+
+                <li ng-repeat="(id,movie) in whatsnexts |whatsNextAllShowsOrMoviesFilter: unwatchedMoviesFilter | filter:query | orderBy:orderProp" >
+                    <input type="checkbox" ng-model="movie.watched">
+                    <span class="done-{{movie.watched}}">{{movie.name}} {{movie.date}}</span>
+                     <button class=" btn btn-danger pull-right" ng-click="removeWhatsNext(id,'Movie',movie.name)"> <i class=" icon-remove" ></i> </button>
+
+                     <hr style="width:%70; color:white;"/>
+                </li>
+            </ul>
+                
+      </div>
+</div>
