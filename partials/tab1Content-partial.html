@@ -1,27 +1,30 @@
-<div ng-controller="whatsnextCtrl">
     <br/>
   <div class="well span5" >
     <h2>Movies coming up:</h2>
-    <ul class="unstyled"  ui:sortable ng:model="whatsnexts" >
-        <li ng-repeat="movie in whatsnexts |  whatsNextFilter:unwatchedMoviesFilter | limitTo: 5 |orderBy: 'movie.date'" class="item">
-            <span >{{movie.name}}</span>
-            <span class="pull-right">{{movie.date}}</span>
-        </li>
-    </ul>
+    <div ng-controller="whatsnextMovieCtrl">
+        <ul class="unstyled"  ui:sortable ng:model="whatsnextsMovies" >
+            <li ng-repeat="movie in whatsnextsMovies |  filter: {watched:false} | limitTo: 5| orderBy: 'date' " class="item">
+                <span >{{movie.name}} {{movie.channel}}</span>
+                <span class="pull-right">{{movie.date}}</span>
+            </li>
+
+        </ul>
+    </div>
         
   </div>
   
   <div class="well span5" >
     <h2>Shows coming up:</h2>
-    <ul class="unstyled"  ui:sortable ng:model="whatsnexts" >
-        <li ng-repeat="show in whatsnexts | whatsNextFilter:unwatchedShowsFilter | limitTo:5| orderBy: 'show.date'" class="item">
+     <div ng-controller="whatsnextShowCtrl">
+    <ul class="unstyled"  ui:sortable ng:model="whatsnextsShows" >
+        <li ng-repeat="show in whatsnextsShows | filter : {watched:false}| limitTo:5| orderBy: 'date' " class="item">
             <span >{{show.name}}</span>
             <span >  (S:{{show.season}}</span>
             <span >   E:{{show.episode}})</span>
+            <span >  {{show.channel}}</span>
             <span class="pull-right">{{show.date}}</span>
         </li>
     </ul>
+   </div>
         
   </div>
-
-</div>

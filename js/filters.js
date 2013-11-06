@@ -18,6 +18,25 @@ angular.module('phonecatFilters', [])
 
 })
 
+.filter('whatsNextWatchedOnlyFilter', function() {
+    return function( items) {
+       return _.select(items, function(movies,i){ 
+                 return _.select(movies,function(video){return video.watched == false});
+         });
+       /*var notCompleted = {};
+            angular.forEach(items, function (video, id) {
+                  
+              if (video.type == typeFiler) {
+               
+                notCompleted[id] = video;
+              }
+              
+            });
+            return notCompleted;*/
+            console.log(items);
+    }
+    
+  })
 
 
 .filter('whatsNextAllShowsOrMoviesFilter', function() {

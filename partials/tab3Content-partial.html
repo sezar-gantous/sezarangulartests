@@ -1,4 +1,4 @@
-<div ng-controller="whatsnextCtrl">
+<div ng-controller="whatsnextShowCtrl">
   
    <div class="well well-larg">
       <input  class=" pull-left" ng-model="query" placeholder="search shows">
@@ -8,8 +8,8 @@
         <option value="name">Alphabetical</option>
         <option value="date">Shows Coming up</option>
         <option value="-date">Shows Later on</option>
-        <option value="watched">Watched Already</option>
-        <option value="-watched">Not Watched</option>
+        <option value="-watched">Watched Already</option>
+        <option value="watched">Not Watched</option>
       </select>
 
       <button class="btn pull-right" ng-click="clearWatched('Show')"><i class="icon-trash"></i>Clear Whatched</button>
@@ -34,12 +34,16 @@
                     <input type="text" name="ShowEpisode" ng-model="newShowEpisodeText" class=" input-small pull-left" placeholder="Episode" ng-model-instant required>
                     <span ng-show="theForm.ShowEpisode.$error.required" class="help-inline"> Required</span>
                      
+                      <input type="text" name="channelInput" ng-model="channelText" class=" input-small pull-left" placeholder="Channel (optional)" >
 
                       <input type="text" datepicker-popup="dd MMMM yyyy" ng-model="dt" is-open="opened"  max="'2020-06-22'" datepicker-options="dateOptions" ng-required="true"  />
                       <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
                       <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
 
                     <button class="btn btn-primary pull-right"  ng-click="addShow()" ><i class="icon-plus"></i>Add</button>
+                      
+       
+
                 </div>
               </form>        
              
@@ -49,19 +53,20 @@
          </div>
 
       <div class="well well-larg" style="z-index:-1;">
-        <h3>You have {{remaining('Show')}}  out of {{total('Show')}} Shows to watch!</h3>
+        <h3>You have {{remainingShows}}  out of {{totalShows}} Shows to watch!</h3>
 
-        <button class="btn btn-success pull-left" ng-click="whatchedAll('Show')"> <i class="icon-ok" ></i></button>
+        <button class="btn btn-success pull-left" ng-click="whatchedAll()"> <i class="icon-ok" ></i></button>
         <br/><br/>
 
-            <ul class="unstyled"   ng:model="whatsnexts" >
-                <li ng-repeat="(id,show) in whatsnexts |whatsNextAllShowsOrMoviesFilter: unwatchedShowsFilter | filter:query | orderBy:orderProp" >
+            <ul class="unstyled"   ng:model="whatsnextsShows" >
+                <li ng-repeat="(id,show) in whatsnextsShows | filter:query | orderBy:orderProp" >
                     <input type="checkbox" ng-model="show.watched">
                     <span class="done-{{show.watched}}">{{show.name}}</span> 
                     <span class="done-{{show.watched}}"> (S: {{show.season}}</span>
                     <span class="done-{{show.watched}}">  E: {{show.episode}})</span>
+                    <span class="done-{{show.watched}}">   {{show.channel}}</span>
                     <span class="done-{{show.watched}}">  {{show.date}}</span>
-                     <button class=" btn btn-danger pull-right" ng-click="removeWhatsNext(id,'Show',show.name)"> <i class=" icon-remove" ></i> </button>
+                     <button class=" btn btn-danger pull-right" ng-click="removeWhatsNext(show)"> <i class=" icon-remove" ></i> </button>
 
                      <hr style="width:%70; color:white;"/>
                 </li>
