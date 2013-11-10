@@ -89,6 +89,15 @@ h1 {
     color: grey;
     }
 
+.note
+{
+  color: grey;
+}
+
+.input-spacer
+{
+  margin-right: 10px;
+}
 
 .item, .placeholder {
     padding: 10px;

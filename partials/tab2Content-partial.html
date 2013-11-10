@@ -1,9 +1,9 @@
 <div ng-controller="whatsnextMovieCtrl">
   
    <div class="well well-larg">
-      <input  class=" pull-left" ng-model="query" placeholder="search movie">
+      <input  class=" pull-left" ng-model="query" placeholder="search movie" >
 
-      <select ng-model="orderProp" >
+      <select ng-model="orderProp"  >
         <option disabled selected>Order by</option>
         <option value="name">Alphabetical</option>
         <option value="date">Movies Coming up</option>
@@ -12,36 +12,52 @@
         <option value="watched">Not Watched</option>
       </select>
 
-      <button class="btn pull-right" ng-click="clearWatched()"><i class="icon-trash"></i>Clear Whatched</button>
-      <button class="btn pull-right" ng-click="isCollapsed = !isCollapsed"><i class=" icon-chevron-down"></i>Add A Movie</button>
+      <button class="btn pull-right" ng-click="clearWatched()" tooltip="You can't undo this..." 
+        tooltip-placement="top"><i class="icon-trash"></i>Clear Whatched</button>
+      <button class="btn pull-right" ng-click="setFocus(); isCollapsed = !isCollapsed"><i class="icon-chevron-down"></i>Add A Movie</button>
       </br>
     </div>  
     <hr>
 
         <div collapse="isCollapsed" style="z-index:1;">
             <div class="well well-larg Homewell" >
+              <br/>
+              <form class="form-vertical" name="theFrom" >
 
-              <form class="form-horizontal" name="theFrom" >
-
+                <h3>Required:</h3>
+                <br/>
                 <div ng-class="{error:theForm.movieInput.$invalid}">
-
-                    <input type="text" name="movieInput" ng-model="newMovieText" class="pull-left" placeholder="Name of the Movie" ng-model-instant required>
-                    <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
-                     
-                    <input type="text" name="ChannelInput" ng-model="channelText" class="pull-left" placeholder="Channel (optional)" >
                    
-                     
-
+                   <div>
+                      <input type="text" name="movieInput" id="AddMovie" ng-model="newMovieText" class="pull-left input-spacer" placeholder="Name of the Movie" ng-model-instant required>
+                      <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
                       <input type="text" datepicker-popup="dd MMMM yyyy" ng-model="dt" is-open="opened"  max="'2020-06-22'" datepicker-options="dateOptions" ng-required="true"  />
                       <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
                       <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+                    </div>
+                    
+                    <br/>
+                    <br/>
+                    <br/>
 
-                    <button class="btn btn-primary pull-right"  ng-click="addMovie()" ><i class="icon-plus"></i>Add</button>
+                    <h3>Optional:</h3>
+                      <br/>
+                    <div>
+                      <input type="text" name="ChannelInput" ng-model="channelText"  placeholder="Channel" >
+                      <br/>
+                      <input type="text" name="LinkInput" ng-model="linkText" placeholder="Link" >
+                    </div>
+                     
+                     <div>
+                      <button class="btn btn-primary pull-right"  ng-click="addMovie()" ><i class="icon-plus"></i>Add</button>
+                     </div>
+
                 </div>
               </form>        
              
             </div>
-             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+            <br/><br/>
+             <!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/> -->
 
          </div>
 
@@ -53,12 +69,64 @@
 
                 <li ng-repeat=" (id, movie) in whatsnextsMovies | filter:query | orderBy:orderProp" >
                     <input type="checkbox" ng-model="movie.watched">
-                    <span class="done-{{movie.watched}}">{{movie.name}}  {{movie.channel}} {{movie.date}}</span>
+                    <span class="done-{{movie.watched}}">{{movie.name}}  {{movie.channel}} <span ng-if="movie.link!= null "> <a href="{{movie.link}}" target="_blank">watch here</a> </span> {{movie.date | date:"fullDate"}}</span>
+
                      <button class=" btn btn-danger pull-right" ng-click="removeWhatsNext(movie)"> <i class=" icon-remove" ></i> </button>
+                     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal" ng-click="edit(movie)"><i class='icon-pencil'></i> Edit</button>
 
                      <hr style="width:%70; color:white;"/>
                 </li>
             </ul>
                 
       </div>
+
+
+       <div id="modal" role="dialog" class="modal hide fade">
+        <!-- <div class="well well-larg"> -->
+            <div class="modal-header well well-larg">
+                <h3>Edit Movie</h3>
+            </div>
+
+            <div class="modal-body">
+                <div class="well well-larg Homewell" >
+                  <br/>
+                  <form class="form-vertical" name="theFrom" >
+
+                    <h3>Required:</h3>
+                    <br/>
+                    <div ng-class="{error:theForm.movieInput.$invalid}">
+                       
+                       <div>
+                          <input type="text" name="movieInput" id="AddMovie" ng-model="movie.name" class="pull-left input-spacer" placeholder="Name of the Movie" ng-model-instant required>
+                          <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+                          <input type="text" datepicker-popup="dd MMMM yyyy" ng-model="movie.date" is-open="opened"  max="'2020-06-22'" datepicker-options="dateOptions" ng-required="true"  />
+                          <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+                          <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+                        </div>
+                        
+                        <br/>
+                        <br/>
+                        <br/>
+
+                        <h3>Optional:</h3>
+                          <br/>
+                        <div>
+                          <input type="text" name="ChannelInput" ng-model="movie.channel"  placeholder="Channel" >
+                          <br/>
+                          <input type="text" name="LinkInput" ng-model="movie.link" placeholder="Link" >
+                        </div>
+                    </div>
+                  </form>        
+                 
+               </div>
+            </div>
+
+            <div class="modal-footer">
+                <span class="note">*Note: You cannot cancle! Once anything is changed its FOREVER... </span>
+                <button class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+         <!-- </div> -->
+    </div>
+
+
 </div>

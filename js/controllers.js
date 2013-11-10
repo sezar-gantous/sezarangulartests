@@ -177,7 +177,7 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
 
   })
 
-.controller('whatsnextMovieCtrl',function($scope,$timeout, $location, angularFire){
+.controller('whatsnextMovieCtrl',function($scope,$rootScope,$timeout, $location, angularFire){
      
      this.onDataLoaded = function onDataLoaded($scope, $location, url) {
            var whatsnexts = $scope.whatsnextsMovies;
@@ -217,12 +217,14 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
                       type:"Movie",
                       name: $scope.newMovieText,
                       channel : $scope.channelText,
-                      date:$scope.dt.toDateString(),
+                      link : $scope.linkText,
+                      date:$scope.dt,
                       watched: false
                     });  
 
                   $scope.newMovieText = '';
                   $scope.channelText='';
+                  $scope.linkText = '';
                   $scope.isCollapsed = true;
                 }
               };
@@ -241,7 +243,17 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
               $scope.total = function() {
                   return _.size($scope.whatsnextsMovies );
               };
-               
+              
+
+              $scope.setFocus = function()
+              {
+                $("#AddMovie").focus();
+              } 
+
+              $scope.edit = function(movie){
+                $rootScope.movie = movie;
+              }
+
               $scope.clearWatched = function() {
               //var oldwhatsnexts = _.select($scope.whatsnexts, function(video){ return video.type == type});
                 
@@ -264,13 +276,18 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
                         });
                         */
                         //whatsnexts.splice(id,1);
-                        $scope.whatsnextsMovies = {}; 
-                       ///console.log(whatsnexts);
-                        $scope.whatsnextsMovies = _.reject(whatsnexts,function (movie) {return movie.watched});
-                        //$scope.whatsnextsMovies = notCompleted;
-                        //console.log(notCompleted);
-                       // whatsnexts = {};
-                       // whatsnexts = watchedMovies;
+                        var r=confirm("Are you sure you want to clear all watched movies?!");
+                        if (r==true)
+                          {
+                           $scope.whatsnextsMovies = {}; 
+                           ///console.log(whatsnexts);
+                            $scope.whatsnextsMovies = _.reject(whatsnexts,function (movie) {return movie.watched});
+                            //$scope.whatsnextsMovies = notCompleted;
+                            //console.log(notCompleted);
+                           // whatsnexts = {};
+                           // whatsnexts = watchedMovies;
+                          }
+                       
 
 
               };
@@ -387,7 +404,7 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
 
   })
    
-   .controller('whatsnextShowCtrl',function($scope,$timeout, $location, angularFire){
+   .controller('whatsnextShowCtrl',function($scope,$rootScope,$timeout, $location, angularFire){
      
      this.onDataLoaded = function onDataLoaded($scope, $location, url) {
           
@@ -430,12 +447,14 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
                             season:  $scope.newShowSeasonText,
                             episode: $scope.newShowEpisodeText,
                             channel: $scope.channelText,
-                            date:    $scope.dt.toDateString(),
+                            link: $scope.linkText,
+                            date:    $scope.dt,
                             watched: false
                           }); 
 
                         $scope.newShowText = '';
                         $scope.channelText ='';
+                        $scope.linkText = '';
                         $scope.newShowSeasonText = '';
                         $scope.newShowEpisodeText ='';
                         $scope.Time = null;
@@ -457,9 +476,12 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
               };
                
               $scope.clearWatched = function() {
-              
+                   var r=confirm("Are you sure you want to clear all watched Shows?!");
+                     if (r==true)
+                      {
                         $scope.whatsnextsShows = {}; 
-                       $scope.whatsnextsShows = _.reject( whatsnexts,function (Show) {return Show.watched});
+                        $scope.whatsnextsShows = _.reject( whatsnexts,function (Show) {return Show.watched});
+                     }
               };
 
               $scope.removeWhatsNext = function(show)
@@ -468,6 +490,14 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
                 $scope.whatsnextsShows.splice( $scope.whatsnextsShows.indexOf(show),1);   
               };
 
+              $scope.setFocus = function()
+              {
+                $("#AddShow").focus();
+              }
+
+              $scope.edit = function(show){
+                $rootScope.show = show;
+              }
 
               $scope.whatchedAll = function()
               {

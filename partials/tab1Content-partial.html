@@ -3,9 +3,10 @@
     <h2>Movies coming up:</h2>
     <div ng-controller="whatsnextMovieCtrl">
         <ul class="unstyled"  ui:sortable ng:model="whatsnextsMovies" >
-            <li ng-repeat="movie in whatsnextsMovies |  filter: {watched:false} | limitTo: 5| orderBy: 'date' " class="item">
-                <span >{{movie.name}} {{movie.channel}}</span>
-                <span class="pull-right">{{movie.date}}</span>
+            <li ng-repeat="movie in whatsnextsMovies |  filter: {watched:false} | orderBy: 'date'| limitTo: 5 " class="item">
+                <span >{{movie.name}} {{movie.channel}} </span>
+                <span ng-if="movie.link != null"> <a href="{{movie.link}}" target="_blank">watch here</a> </span>
+                <span class="pull-right">{{movie.date | date:"fullDate"}}</span>
             </li>
 
         </ul>
@@ -17,12 +18,13 @@
     <h2>Shows coming up:</h2>
      <div ng-controller="whatsnextShowCtrl">
     <ul class="unstyled"  ui:sortable ng:model="whatsnextsShows" >
-        <li ng-repeat="show in whatsnextsShows | filter : {watched:false}| limitTo:5| orderBy: 'date' " class="item">
+        <li ng-repeat="show in whatsnextsShows | filter : {watched:false}| orderBy: 'date'| limitTo:5 " class="item">
             <span >{{show.name}}</span>
             <span >  (S:{{show.season}}</span>
             <span >   E:{{show.episode}})</span>
             <span >  {{show.channel}}</span>
-            <span class="pull-right">{{show.date}}</span>
+            <span ng-if="show.link != null"> <a href="{{show.link}}" target="_blank">watch here</a> </span>
+            <span class="pull-right">{{show.date| date:"fullDate"}}</span>
         </li>
     </ul>
    </div>

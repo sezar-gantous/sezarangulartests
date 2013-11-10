@@ -2,7 +2,7 @@
 
 /* App Module */
 
-angular.module('phonecat', ['phonecatFilters', 'phonecat.services','phonecat.controllers','firebase']).
+angular.module('phonecat', ['phonecatFilters', 'phonecat.services','phonecat.controllers','firebase','ngRoute']).
   config(['$routeProvider', function($routeProvider) {
   $routeProvider.
       when('/phones', {templateUrl: 'partials/phone-list.html',   controller: 'PhoneListCtrl'}).

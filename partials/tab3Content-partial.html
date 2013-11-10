@@ -1,9 +1,9 @@
 <div ng-controller="whatsnextShowCtrl">
   
    <div class="well well-larg">
-      <input  class=" pull-left" ng-model="query" placeholder="search shows">
+      <input  class=" pull-left" ng-model="query" placeholder="search shows" >
 
-      <select ng-model="orderProp" >
+      <select ng-model="orderProp"  >
         <option disabled selected>Order by</option>
         <option value="name">Alphabetical</option>
         <option value="date">Shows Coming up</option>
@@ -12,44 +12,60 @@
         <option value="watched">Not Watched</option>
       </select>
 
-      <button class="btn pull-right" ng-click="clearWatched('Show')"><i class="icon-trash"></i>Clear Whatched</button>
-      <button class="btn pull-right" ng-click="isCollapsed = !isCollapsed"><i class=" icon-chevron-down"></i>Add A Show</button>
+      <button class="btn pull-right" ng-click="clearWatched()" tooltip="You can't undo this..." 
+        tooltip-placement="top"><i class="icon-trash"></i>Clear Whatched</button>
+      <button class="btn pull-right" ng-click=" setFocus(); isCollapsed = !isCollapsed"><i class=" icon-chevron-down"></i>Add A Show</button>
       </br>
     </div>  
     <hr>
 
         <div collapse="isCollapsed" style="z-index:1;">
             <div class="well well-larg Homewell" >
-
-              <form class="form-horizontal" name="theFrom" >
-
+              <br/>
+              <form class="form-vertical" name="theFrom" >
+                <h3>Required:</h3>
+                <br/>
                 <div ng-class="{error:theForm.movieInput.$invalid}">
-
-                    <input type="text" name="ShowName" ng-model="newShowText" class="pull-left" placeholder="Name of the Show" ng-model-instant required>
+                   <div>
+                    <input id="AddShow" type="text" name="ShowName" ng-model="newShowText" class="input-spacer pull-left" placeholder="Name of the Show" ng-model-instant required>
                     <span ng-show="theForm.ShowName.$error.required" class="help-inline"> Required</span>
                      
-                     <input type="text"  name="ShowSeason" ng-model="newShowSeasonText" class=" input-small pull-left" placeholder="Season" ng-model-instant required>
+                     <input type="text"  name="ShowSeason" ng-model="newShowSeasonText" class=" input-small pull-left input-spacer" placeholder="Season" ng-model-instant required>
                     <span ng-show="theForm.ShowSeason.$error.required" class="help-inline"> Required</span>
                      
-                    <input type="text" name="ShowEpisode" ng-model="newShowEpisodeText" class=" input-small pull-left" placeholder="Episode" ng-model-instant required>
+                    <input type="text" name="ShowEpisode" ng-model="newShowEpisodeText" class=" input-small pull-left input-spacer" placeholder="Episode" ng-model-instant required>
                     <span ng-show="theForm.ShowEpisode.$error.required" class="help-inline"> Required</span>
                      
-                      <input type="text" name="channelInput" ng-model="channelText" class=" input-small pull-left" placeholder="Channel (optional)" >
 
                       <input type="text" datepicker-popup="dd MMMM yyyy" ng-model="dt" is-open="opened"  max="'2020-06-22'" datepicker-options="dateOptions" ng-required="true"  />
                       <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
                       <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+                    </div>
 
-                    <button class="btn btn-primary pull-right"  ng-click="addShow()" ><i class="icon-plus"></i>Add</button>
-                      
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <h3>Optional:</h3>
+                    <br/>
+                    <div>
+                      <input type="text" name="channelInput" ng-model="channelText" class=" input-smal" placeholder="Channel" >
+                      <br/>
+                       <input type="text" name="LinkInput" ng-model="linkText" placeholder="Link" >
+                    </div>
+
+                    <div>  
+                      <button class="btn btn-primary pull-right"  ng-click="addShow()" ><i class="icon-plus"></i>Add</button>
+                    </div> 
        
 
                 </div>
               </form>        
              
             </div>
-             <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-
+            <br/><br/>
+             <!-- <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+ -->
          </div>
 
       <div class="well well-larg" style="z-index:-1;">
@@ -64,13 +80,79 @@
                     <span class="done-{{show.watched}}">{{show.name}}</span> 
                     <span class="done-{{show.watched}}"> (S: {{show.season}}</span>
                     <span class="done-{{show.watched}}">  E: {{show.episode}})</span>
-                    <span class="done-{{show.watched}}">   {{show.channel}}</span>
-                    <span class="done-{{show.watched}}">  {{show.date}}</span>
+                    <span class="done-{{show.watched}}">   {{show.channel}}
+                     <span ng-if="show.link!= null "> 
+                      <a href="{{show.link}}" target="_blank">watch here</a> 
+                     </span> 
+                   </span>
+
+                    <span class="done-{{show.watched}}">  {{show.date | date:"fullDate"}}</span>
+                    
                      <button class=" btn btn-danger pull-right" ng-click="removeWhatsNext(show)"> <i class=" icon-remove" ></i> </button>
+                     <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal2" ng-click="edit(show)"><i class='icon-pencil'></i> Edit</button>
 
                      <hr style="width:%70; color:white;"/>
                 </li>
             </ul>
                 
       </div>
+
+
+            <div id="modal2" role="dialog" class="modal hide fade" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header well well-larg">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Edit Show</h3>
+
+            </div>
+
+            <div class="modal-body">
+                <div class="well well-larg Homewell" >
+                  <br/>
+                  <form class="form-vertical" name="theFrom" >
+
+                    <h3>Required:</h3>
+                    <br/>
+                    <div ng-class="{error:theForm.movieInput.$invalid}">
+                       
+                      <div>
+                        <input id="AddShow" type="text" name="ShowName" ng-model="show.name" class="input-spacer pull-left" placeholder="Name of the Show" ng-model-instant required>
+                        <span ng-show="theForm.ShowName.$error.required" class="help-inline"> Required</span>
+                         
+                         <input type="text"  name="ShowSeason" ng-model="show.season" class=" input-small pull-left input-spacer" placeholder="Season" ng-model-instant required>
+                        <span ng-show="theForm.ShowSeason.$error.required" class="help-inline"> Required</span>
+                         
+                        <input type="text" name="ShowEpisode" ng-model="show.episode" class=" input-small pull-left input-spacer" placeholder="Episode" ng-model-instant required>
+                        <span ng-show="theForm.ShowEpisode.$error.required" class="help-inline"> Required</span>
+                         
+
+                        <input type="text" datepicker-popup="dd MMMM yyyy" ng-model="show.date" is-open="opened"  max="'2020-06-22'" datepicker-options="dateOptions" ng-required="true"  />
+                        <button class="btn" ng-click="open()"><i class="icon-calendar"></i></button>
+                        <span ng-show="theForm.name.$error.required" class="help-inline"> Required</span>
+                      </div>
+
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <h3>Optional:</h3>
+                    <br/>
+                    <div>
+                      <input type="text" name="channelInput" ng-model="show.channel" class=" input-small" placeholder="Channel" >
+                      <br/>
+                       <input type="text" name="LinkInput" ng-model="show.link" placeholder="Link" >
+                    <div/>
+
+                    </div>
+                   </div>
+                  </form>        
+                 
+            </div>
+      </div>
+
+            <div class="modal-footer">
+                <span class="note">*Note: You cannot cancle! Once anything is changed its FOREVER... </span>
+                <button class="btn btn-primary" data-dismiss="modal">OK</button>
+            </div>
+    </div>
+
 </div>
