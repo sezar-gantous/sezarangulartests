@@ -69,7 +69,7 @@
 
                 <li ng-repeat=" (id, movie) in whatsnextsMovies | filter:query | orderBy:orderProp" >
                     <input type="checkbox" ng-model="movie.watched">
-                    <span class="done-{{movie.watched}}">{{movie.name}}  {{movie.channel}} <span ng-if="movie.link!= null "> <a href="{{movie.link}}" target="_blank">watch here</a> </span> {{movie.date | date:"fullDate"}}</span>
+                    <span class="done-{{movie.watched}}"> <strong>{{movie.name}}</strong>  {{movie.channel}} <span ng-if="movie.link!= null "> <a href="{{movie.link}}" target="_blank">watch here</a> </span> {{movie.date | date:"fullDate"}}</span>
 
                      <button class=" btn btn-danger pull-right" ng-click="removeWhatsNext(movie)"> <i class=" icon-remove" ></i> </button>
                      <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal" ng-click="edit(movie)"><i class='icon-pencil'></i> Edit</button>
