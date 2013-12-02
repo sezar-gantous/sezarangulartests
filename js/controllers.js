@@ -391,7 +391,7 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
            
      };
 
-    var url = 'https://whatsnextfamily.firebaseio.com/whatsnext/movies';
+    var url = 'https://whats-next.firebaseio.com/whats-next/movies';
  
    if ($location.path() === '') {
        $location.path('/');
@@ -591,7 +591,7 @@ angular.module('phonecat.controllers', ['ui','ui.bootstrap']).
            
      };
 
-    var url = 'https://whatsnextfamily.firebaseio.com/whatsnext/shows';
+    var url = 'https://whats-next.firebaseio.com/whats-next/shows';
  
    if ($location.path() === '') {
        $location.path('/');
